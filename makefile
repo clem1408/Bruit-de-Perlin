@@ -25,7 +25,7 @@ OBJECTS_O = $(OBJECTS) $(EXEC_O)
 #
 
 CC = g++
-CCFLAGS_STD = -Wall -Werror
+CCFLAGS_STD = -Ofast -Wall -Werror -Wextra -march=native -mtune=native
 CCFLAGS_DEBUG = -D _DEBUG_
 CCFLAGS = $(CCFLAGS_STD)
 CCLIBS = -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc
@@ -37,7 +37,7 @@ CCLIBS = -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc
 all: msg $(OBJECTS) $(EXEC_O)
 	@echo "Create executables..."
 	@for i in $(EXEC); do \
-	$(CC) -o $$i $$i.o $(OBJECTS) $(CCLIBS); \
+	$(CC) -o $$i.out $$i.o $(OBJECTS) $(CCLIBS); \
 	done
 	@echo "Done."
 
@@ -62,7 +62,7 @@ clean:
 	@echo "Delete objects, temporary files..."
 	@rm -f $(OBJECTS) $(EXEC_O)
 	@rm -f *~ *#
-	@rm -f $(EXEC)
+	@rm -f $(EXEC).out
 	@rm -f dependancies
 	@echo "Done."
 
